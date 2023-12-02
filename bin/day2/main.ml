@@ -9,8 +9,8 @@ let rec part2 lines total : int =
       part2 tail (total + res)
 
 let () =
-  let filename = "input" in
-  let lines = Reader.read_file filename in
+  let filename = "inputs/day2" in
+  let lines = Advent.read_file filename in
   part2 lines 0
   |> Printf.printf "%d"
 

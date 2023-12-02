@@ -1,5 +1,10 @@
+
+let log_action action complete =
+  if complete then print_endline (action ^ " ✅")
+  else print_endline (action ^ " ⚙️")
+
 let read_file filename =
-  Logger.log_action "reading" false;
+  log_action "reading" false;
   try
     let channel = open_in filename in
     let rec read_lines acc =
@@ -11,6 +16,7 @@ let read_file filename =
         List.rev acc
     in
     let lines = read_lines [] in
-    Logger.log_action "reading" true;
+    log_action "reading" true;
     lines
   with Sys_error msg -> failwith ("Error: " ^ msg)
+

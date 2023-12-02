@@ -1,13 +1,10 @@
-let get_word tuple = match tuple with word, _ -> word
-let get_number tuple = match tuple with _, number -> number
-
 let rec check_letters_digit str numbers index : int =
   let len = List.length numbers in
   if index = len then failwith "Not found"
   else
     let tuple = List.nth numbers index in
-    let word = get_word tuple in
-    if String.starts_with ~prefix:word str then get_number tuple
+    let word = fst tuple in
+    if String.starts_with ~prefix:word str then snd tuple
     else check_letters_digit str numbers (index + 1)
 
 let rec list_digits line i digits =
@@ -48,7 +45,7 @@ let rec process_line lines index total =
     process_line lines (index + 1) (current_total + total)
 
 let () =
-  let filename = "input" in
-  let lines = Reader.read_file filename in
+  let filename = "inputs/day1" in
+  let lines = Advent.read_file filename in
   let total = process_line lines 0 0 in
   Printf.printf "Result: %d\n" total
