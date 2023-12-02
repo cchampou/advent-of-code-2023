@@ -14,7 +14,7 @@ let log_color color =
   | Types.Green -> print_string "green"
   | Types.Blue -> print_string "blue"
 
-let log_set (set : (int * Types.color) list) : unit =
+let log_set (set : (int * Types.color) list) : (int * Types.color) list =
   let len = List.length set in
   print_string "[";
   for i = 0 to len - 1 do
@@ -23,4 +23,5 @@ let log_set (set : (int * Types.color) list) : unit =
     print_string "-";
     log_color y
   done;
-  print_endline "]"
+  print_endline "]";
+  set

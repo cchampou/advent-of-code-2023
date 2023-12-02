@@ -9,8 +9,7 @@ let get_game_string (line : string) : string =
   | _ -> failwith "Incorrect input, expected: `Game n: data`"
 
 let get_game_str_set (game_str : string) : string list =
-  let split = String.split_on_char ';' game_str in
-  List.map String.trim split
+  String.split_on_char ';' game_str |> List.map String.trim
 
 let convert_to_pair (set : string) : int * Types.color =
   String.split_on_char ' ' set |> List.map String.trim |> fun y ->
@@ -22,27 +21,19 @@ let convert_to_pair (set : string) : int * Types.color =
   | _ -> failwith "Unkown color"
 
 let split_set (set : string) : (int * Types.color) list =
-  let split = String.split_on_char ',' set in
-  List.map String.trim split |> List.map convert_to_pair
+  String.split_on_char ',' set
+  |> List.map String.trim |> List.map convert_to_pair
 
-let is_valid (x, y) instructions : bool =
+let is_valid instructions (x, y) : unit =
   Printf.printf "Cheking if %d" x;
   Logger.log_color y;
   print_endline "";
   let element = List.find (fun s -> snd s = y) instructions in
-  if fst element < x then failwith "Not valid" else true
+  if fst element < x then failwith "Not valid" else ()
 
-let check_set instructions set : unit =
-  let len = List.length set in
-  for i = 0 to len - 1 do
-    let current = List.nth set i in
-    ignore (is_valid current instructions)
-  done;
-  ()
+let check_set instructions set : unit = List.iter (is_valid instructions) set
 
 let parse_game_line line instructions : unit =
-  let game_string = get_game_string line in
-  let sets = get_game_str_set game_string in
-  let splitted_sets = List.map split_set sets in
-  List.iter Logger.log_set splitted_sets;
-  List.iter (check_set instructions) splitted_sets
+  get_game_string line |> get_game_str_set |> List.map split_set
+  |> List.map Logger.log_set
+  |> List.iter (check_set instructions)
