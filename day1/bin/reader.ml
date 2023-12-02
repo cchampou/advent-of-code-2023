@@ -8,11 +8,9 @@ let read_file filename =
         read_lines (line :: acc)
       with End_of_file ->
         close_in channel;
-        List.rev acc;
+        List.rev acc
     in
     let lines = read_lines [] in
     Logger.log_action "reading" true;
     lines
-  with
-    | Sys_error msg -> failwith ("Error: " ^ msg)
-;;
+  with Sys_error msg -> failwith ("Error: " ^ msg)
