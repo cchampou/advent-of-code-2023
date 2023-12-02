@@ -26,11 +26,9 @@ let rec list_digits line i digits =
       with _ -> list_digits line next_i digits
 
 let get_tuple numbers =
-  let first = Utils.get_first numbers in
-  let last = Utils.get_last numbers in
-  let first_digit = int_of_char first - int_of_char '0' in
-  let last_digit = int_of_char last - int_of_char '0' in
-  (first_digit, last_digit)
+  match numbers with
+  | h :: _ -> (Utils.char_to_int h, Utils.char_to_int (Utils.get_last numbers))
+  | _ -> failwith "Incorrect pair"
 
 let rec process_line lines index total =
   let len = List.length lines in

@@ -1,4 +1,3 @@
-
 let log_action action complete =
   if complete then print_endline (action ^ " ✅")
   else print_endline (action ^ " ⚙️")
@@ -19,4 +18,3 @@ let read_file filename =
     log_action "reading" true;
     lines
   with Sys_error msg -> failwith ("Error: " ^ msg)
-

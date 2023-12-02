@@ -35,24 +35,20 @@ let check_set instructions : (int * Types.color) list -> unit =
   List.iter (is_valid instructions)
 
 let max_value_unit (value, color) current_max =
-  if snd current_max == color && value > fst current_max then
-    (value, color)
-  else
-    current_max
+  if snd current_max == color && value > fst current_max then (value, color)
+  else current_max
 
-let max_value (current_max_table: (int * Types.color) list ) (element: (int * Types.color)) =
+let max_value (current_max_table : (int * Types.color) list)
+    (element : int * Types.color) =
   List.map (max_value_unit element) current_max_table
-
 
 let rec get_max acc sets =
   match sets with
   | [] -> acc
-  | head :: tail ->
-      get_max (max_value acc head) tail
+  | head :: tail -> get_max (max_value acc head) tail
 
 let parse_game_line line : (int * Types.color) list =
   get_game_string line |> get_game_str_set |> List.map split_set
-  |> List.map Logger.log_set
-  |> List.flatten
+  |> List.map Logger.log_set |> List.flatten
   |> get_max [ (0, Types.Red); (0, Types.Blue); (0, Types.Green) ]
 (* |> List.iter (check_set instructions) *)
