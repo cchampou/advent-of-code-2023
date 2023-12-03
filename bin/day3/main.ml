@@ -18,5 +18,5 @@ let () =
     |> List.mapi (fun i -> Symbols.find_symbols [] (0, i))
     |> List.flatten |> List.map Logger.log_symbol
   in
-  Sum.count pparts_unwrapped symbols 0 0 |> Printf.printf "Result %d";
+  Sum.count pparts_unwrapped symbols 0 |> Printf.printf "Result %d";
   ()
