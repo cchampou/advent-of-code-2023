@@ -18,3 +18,10 @@ let read_file filename =
     log_action "reading" true;
     lines
   with Sys_error msg -> failwith ("Error: " ^ msg)
+
+let is_numeric c =
+  let ascii_code = Char.code c in
+  ascii_code >= Char.code '0' && ascii_code <= Char.code '9'
+
+let char_to_int character = int_of_char character - int_of_char '0'
+let length_of_int n = string_of_int n |> String.length

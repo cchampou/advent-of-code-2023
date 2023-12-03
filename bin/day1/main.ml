@@ -13,7 +13,7 @@ let rec list_digits line i digits =
   else
     let char_at_i = line.[i] in
     let next_i = i + 1 in
-    if Utils.is_numeric char_at_i then
+    if Advent.is_numeric char_at_i then
       let new_digits = char_at_i :: digits in
       list_digits line next_i new_digits
     else
