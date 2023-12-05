@@ -25,3 +25,14 @@ let is_numeric c =
 
 let char_to_int character = int_of_char character - int_of_char '0'
 let length_of_int n = string_of_int n |> String.length
+
+let rec parse_number (line : string) (total : int) : int =
+  let len = String.length line in
+  match line with
+  | "" -> total
+  | _ ->
+      if is_numeric line.[0] != true then total
+      else
+        parse_number
+          (String.sub line 1 (len - 1))
+          ((total * 10) + char_to_int line.[0])
