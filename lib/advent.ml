@@ -2,7 +2,7 @@ let log_action action complete =
   if complete then print_endline (action ^ " ✅")
   else print_endline (action ^ " ⚙️")
 
-let read_file filename =
+let read_file filename : string list =
   log_action "reading" false;
   try
     let channel = open_in filename in
